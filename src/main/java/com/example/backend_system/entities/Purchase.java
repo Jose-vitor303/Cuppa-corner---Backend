@@ -1,5 +1,6 @@
 package com.example.backend_system.entities;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,11 +13,11 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Order {
+public class Purchase {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id_order;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id_purchase;
 
     @ManyToOne
     @JoinColumn(name = "id_user")

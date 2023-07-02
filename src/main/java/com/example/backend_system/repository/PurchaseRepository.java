@@ -1,14 +1,11 @@
 package com.example.backend_system.repository;
 
-
-import com.example.backend_system.entities.OrderedItem;
+import com.example.backend_system.entities.Purchase;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
 @Repository
-public interface OrderedItemRepository extends JpaRepository<OrderedItem, Long> {
-
+public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
 }

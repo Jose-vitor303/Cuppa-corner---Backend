@@ -1,5 +1,6 @@
 package com.example.backend_system.entities;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,8 +17,8 @@ import java.util.UUID;
 public class Category {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id_category;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id_category;
     private String category_name;
 
     public Category(String category_name) {

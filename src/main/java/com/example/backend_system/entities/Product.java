@@ -1,5 +1,6 @@
 package com.example.backend_system.entities;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,8 +16,8 @@ import java.util.UUID;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id_product;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id_product;
     private String name;
     private String description;
     private BigDecimal price;
