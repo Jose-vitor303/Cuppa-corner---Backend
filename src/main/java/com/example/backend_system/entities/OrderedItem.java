@@ -27,4 +27,10 @@ public class OrderedItem {
     private Product product;
 
     private int amount;
+
+    public OrderedItem(Purchase purchase, Product product, int amount) {
+        this.purchase = purchase;
+        this.product = product;
+        this.amount = amount;
+    }
 }

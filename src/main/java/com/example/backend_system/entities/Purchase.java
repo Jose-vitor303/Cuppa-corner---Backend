@@ -24,4 +24,9 @@ public class Purchase {
     private User user;
     private LocalDate request_date;
     private BigDecimal total_price;
+
+    public Purchase(LocalDate request_date, BigDecimal total_price) {
+        this.request_date = request_date;
+        this.total_price = total_price;
+    }
 }
