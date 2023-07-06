@@ -1,10 +1,10 @@
 package com.example.backend_system.entities;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.UUID;
+
 
 @Entity
 @Getter

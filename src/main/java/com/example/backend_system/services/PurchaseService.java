@@ -23,9 +23,8 @@ public class PurchaseService {
 
     public void addPurchase(@RequestBody Purchase purchase){
 
-        Purchase purchase1 = new Purchase(purchase.getRequest_date(), purchase.getTotal_price());
+        Purchase purchase1 = new Purchase(purchase.getUser(), purchase.getRequest_date(), purchase.getProductList());
         purchaseRepository.save(purchase1);
     }
-
 
 }
