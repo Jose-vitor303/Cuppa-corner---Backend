@@ -3,10 +3,12 @@ package com.example.backend_system.services;
 
 import com.example.backend_system.entities.Purchase;
 import com.example.backend_system.repository.PurchaseRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+
 
 @Service
 public class PurchaseService {
@@ -17,14 +19,12 @@ public class PurchaseService {
         this.purchaseRepository = purchaseRepository;
     }
 
-    public List<Purchase> getAllPurchase(){
+    public List<Purchase> findAll(){
         return purchaseRepository.findAll();
     }
 
-    public void addPurchase(@RequestBody Purchase purchase){
-
-        Purchase purchase1 = new Purchase(purchase.getUser(), purchase.getRequest_date(), purchase.getProductList());
-        purchaseRepository.save(purchase1);
+    public Purchase save(Purchase purchase){
+        return purchaseRepository.save(purchase);
     }
 
 }

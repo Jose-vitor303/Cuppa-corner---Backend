@@ -34,11 +34,11 @@ public class Purchase {
     )
     private List<Product> productList = new ArrayList<>();
 
-    public Purchase( User user, LocalDate request_date, List<Product> productList) {
+    public Purchase( User user, List<Product> productList) {
         this.user = user;
-        this.request_date = request_date;
-        this.productList = productList;
+        this.request_date = LocalDate.now();
         this.total = calculateTotal();
+        this.productList = productList;
     }
 
     public BigDecimal calculateTotal(){

@@ -2,8 +2,9 @@ package com.example.backend_system.services;
 
 import com.example.backend_system.entities.User;
 import com.example.backend_system.repository.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -16,14 +17,12 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<User> getAllUsers(){
+    public List<User> findAll(){
         return userRepository.findAll();
     }
 
-    public void addUser(@RequestBody User user){
-        User user1 = new User(user.getName(), user.getEmail(), user.getPassword(), user.getAddress(), user.getPhotograph());
-        userRepository.save(user1);
-
+    public User save(User user){
+        return userRepository.save(user);
     }
 
 

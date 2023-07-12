@@ -3,7 +3,9 @@ package com.example.backend_system.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 
 
 @Entity
@@ -20,15 +22,11 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private String address;
-    private String photograph;
 
 
-    public User(String name, String email, String password, String address, String photograph) {
+    public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.address = address;
-        this.photograph = photograph;
     }
 }
