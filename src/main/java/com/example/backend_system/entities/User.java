@@ -1,10 +1,12 @@
 package com.example.backend_system.entities;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.UUID;
+import java.io.IOException;
+
 
 @Entity
 @Getter
@@ -20,8 +22,11 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private String address;
-    private String photograph;
 
 
+    public User(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
 }

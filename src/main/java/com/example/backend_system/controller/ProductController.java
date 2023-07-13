@@ -3,6 +3,7 @@ package com.example.backend_system.controller;
 
 import com.example.backend_system.entities.Product;
 import com.example.backend_system.services.ProductService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,7 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<List<Product>> getAllProducts(){
-        List<Product> productList = productService.getAllProducts();
+        List<Product> productList = productService.findAll();
 
         if(productList.isEmpty()){
             return ResponseEntity.noContent().build();
@@ -30,8 +31,9 @@ public class ProductController {
     }
 
     @PostMapping("/add/product")
-    public void addProduct(@RequestBody Product data){
-        productService.addProduct(data);
+    public ResponseEntity<Object> addProduct(@RequestBody Product product){
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(productService.save(product));
     }
 
 

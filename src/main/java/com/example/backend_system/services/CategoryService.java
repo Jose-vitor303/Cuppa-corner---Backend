@@ -2,6 +2,8 @@ package com.example.backend_system.services;
 
 import com.example.backend_system.entities.Category;
 import com.example.backend_system.repository.CategoryRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -16,14 +18,12 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    public List<Category> getAllCategories(){
+    public List<Category> findAll(){
         return categoryRepository.findAll();
     }
 
-    public void addCategory(@RequestBody Category category){
-        Category category1 = new Category(category.getCategory_name());
-
-        categoryRepository.save(category1);
+    public Category save(Category category){
+        return categoryRepository.save(category);
     }
 
 

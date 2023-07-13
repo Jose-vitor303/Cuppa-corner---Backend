@@ -2,6 +2,8 @@ package com.example.backend_system.controller;
 
 import com.example.backend_system.entities.Category;
 import com.example.backend_system.services.CategoryService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +21,7 @@ public class CategoryController {
 
     @GetMapping
     public ResponseEntity<List<Category>> getAllCategories(){
-        List<Category> categoryList = categoryService.getAllCategories();
+        List<Category> categoryList = categoryService.findAll();
 
         if(categoryList.isEmpty()){
             return ResponseEntity.noContent().build();
@@ -29,9 +31,12 @@ public class CategoryController {
     }
 
     @PostMapping("/add/category")
-    public void addCategory(@RequestBody Category data){
-        categoryService.addCategory(data);
+    public ResponseEntity<Object> createCategory(@RequestBody Category category){
+
+        Category category1 = new Category(category.getCategory_name());
+        return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.save(category1));
     }
+
 
 
 }
