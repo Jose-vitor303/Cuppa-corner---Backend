@@ -36,9 +36,10 @@ public class Purchase {
 
     public Purchase( User user, List<Product> productList) {
         this.user = user;
+        this.productList = productList;
         this.request_date = LocalDate.now();
         this.total = calculateTotal();
-        this.productList = productList;
+
     }
 
     public BigDecimal calculateTotal(){
