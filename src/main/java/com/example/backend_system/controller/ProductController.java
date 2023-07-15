@@ -33,7 +33,8 @@ public class ProductController {
     @PostMapping("/add/product")
     public ResponseEntity<Object> addProduct(@RequestBody Product product){
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(productService.save(product));
+        productService.save(product);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
 
