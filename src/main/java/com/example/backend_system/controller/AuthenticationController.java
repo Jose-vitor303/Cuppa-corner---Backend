@@ -7,6 +7,7 @@ import com.example.backend_system.dto.RegisterDTO;
 import com.example.backend_system.entities.User;
 import com.example.backend_system.repository.UserRepository;
 import com.example.backend_system.services.TokenService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,15 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("auth")
+@RequiredArgsConstructor
 public class AuthenticationController {
 
-    @Autowired
-    private UserRepository repository;
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
-    private TokenService tokenService;
+    private final UserRepository repository;
+    private final AuthenticationManager authenticationManager;
+    private final TokenService tokenService;
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Validated AuthenticationDTO data){
