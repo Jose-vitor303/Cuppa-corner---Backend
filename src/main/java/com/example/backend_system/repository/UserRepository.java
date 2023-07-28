@@ -2,11 +2,13 @@ package com.example.backend_system.repository;
 
 import com.example.backend_system.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
-
 import java.util.UUID;
 
+
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, UUID> {
+
+    UserDetails findByLogin(String login);
 }

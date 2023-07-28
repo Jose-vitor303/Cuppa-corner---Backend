@@ -17,7 +17,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping
+    @GetMapping("/teste")
     public ResponseEntity<List<User>> getAllUsers(){
         List<User> userList = userService.findAll();
 
@@ -27,14 +27,4 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.OK).body(userList);
         }
     }
-
-
-    @PostMapping("/add/user")
-    public ResponseEntity<Object> createUser(@RequestBody User user){
-
-       User user1 = new User(user.getName(), user.getEmail(), user.getPassword());
-
-       return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(user1));
-    }
-
 }

@@ -34,7 +34,8 @@ public class CategoryController {
     public ResponseEntity<Object> createCategory(@RequestBody Category category){
 
         Category category1 = new Category(category.getCategory_name());
-        return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.save(category1));
+        categoryService.save(category1);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
 

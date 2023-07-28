@@ -35,7 +35,8 @@ public class PurchaseController {
     public ResponseEntity<Object> createPurchase(@RequestBody Purchase purchase){
 
         Purchase purchase1 = new Purchase(purchase.getUser(), purchase.getProductList());
-        return ResponseEntity.status(HttpStatus.CREATED).body(purchaseService.save(purchase1));
+        purchaseService.save(purchase1);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
 //    @PostMapping("{purchaseId}/addProduct/{productId}")
