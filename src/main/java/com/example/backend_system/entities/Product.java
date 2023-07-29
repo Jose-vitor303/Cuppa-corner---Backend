@@ -48,4 +48,8 @@ public class Product {
         this.categories = categories;
         this.amount = amount;
     }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
 }

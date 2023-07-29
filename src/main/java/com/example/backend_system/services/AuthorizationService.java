@@ -1,6 +1,7 @@
 package com.example.backend_system.services;
 
 
+import com.example.backend_system.model.UserRole;
 import com.example.backend_system.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,4 +19,5 @@ public class AuthorizationService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByLogin(username);
     }
+
 }

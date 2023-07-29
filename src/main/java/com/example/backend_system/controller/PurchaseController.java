@@ -7,7 +7,7 @@ import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+qq
 import java.util.List;
 
 @RestController
@@ -31,33 +31,33 @@ public class PurchaseController {
         }
     }
 
-    @PostMapping("/add/purchase")
-    public ResponseEntity<Object> createPurchase(@RequestBody Purchase purchase){
+    @PostMapping("/add/purchase/{amount}")
+    public ResponseEntity<Object> createPurchase(@RequestBody Purchase purchase, @PathVariable int amount){
 
         Purchase purchase1 = new Purchase(purchase.getUser(), purchase.getProductList());
         purchaseService.save(purchase1);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-//    @PostMapping("{purchaseId}/addProduct/{productId}")
-//    public ResponseEntity<Object> addProductToPurchase(@PathVariable Long purchaseId, @PathVariable Long productId){
-//
-//        try{
-//            purchaseService.addProductToPurchase(purchaseId, productId);
-//            return ResponseEntity.ok("Produto adicionado com sucesso à compra");
-//        }catch (ChangeSetPersister.NotFoundException e){
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Compra ou produto não encontrado");
-//        }
-//    }
-//
-//    @DeleteMapping("{purchaseId}/removeProduct/{productId}")
-//    public ResponseEntity<Object> removeProductFromPurchase(@PathVariable Long purchaseId, @PathVariable Long productId){
-//
-//        try{
-//            purchaseService.removeProductFromPurchase(purchaseId, productId);
-//            return ResponseEntity.ok("Produto removido com sucesso");
-//        }catch (ChangeSetPersister.NotFoundException e){
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Compra ou produto não encontrado");
-//        }
-//    }
+    @PostMapping("{purchaseId}/addProduct/{productId}/amount/{productAmount}")
+    public ResponseEntity<Object> addProductToPurchase(@PathVariable Long purchaseId, @PathVariable Long productId, @PathVariable Long productAmount){
+
+        try{
+            purchaseService.addProductToPurchase(purchaseId, productId, productAmount);
+            return ResponseEntity.ok("Produto adicionado com sucesso à compra");
+        }catch (ChangeSetPersister.NotFoundException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Compra ou produto não encontrado");
+        }
+    }
+
+    @DeleteMapping("{purchaseId}/removeProduct/{productId}/amount/{productAmount}")
+    public ResponseEntity<Object> removeProductFromPurchase(@PathVariable Long purchaseId, @PathVariable Long productId, @PathVariable Long productAmount){
+
+        try{
+            purchaseService.removeProductFromPurchase(purchaseId, productId, productAmount);
+            return ResponseEntity.ok("Produto removido com sucesso");
+        }catch (ChangeSetPersister.NotFoundException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Compra ou produto não encontrado");
+        }
+    }
 }

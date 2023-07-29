@@ -5,8 +5,10 @@ import com.example.backend_system.dto.AuthenticationDTO;
 import com.example.backend_system.dto.LoginResponseDTO;
 import com.example.backend_system.dto.RegisterDTO;
 import com.example.backend_system.entities.User;
+import com.example.backend_system.model.UserRole;
 import com.example.backend_system.repository.UserRepository;
 import com.example.backend_system.services.TokenService;
+import com.example.backend_system.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationController {
 
     private final UserRepository repository;
+
+    private final UserService userService;
     private final AuthenticationManager authenticationManager;
     private final TokenService tokenService;
 
@@ -45,7 +49,8 @@ public class AuthenticationController {
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
 
-        User newUser = new User(data.login(), encryptedPassword, data.role());
+        UserRole role = userService.getUserRoleForFirstUser();
+        User newUser = new User(data.login(), encryptedPassword, role);
 
         this.repository.save(newUser);
 

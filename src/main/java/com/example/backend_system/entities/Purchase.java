@@ -51,6 +51,7 @@ public class Purchase {
 
             if(amount > 0){
                 BigDecimal itemTotal = price.multiply(BigDecimal.valueOf(amount));
+                product.setAmount(amount);
                 total = total.add(itemTotal);
             }else {
                 total = total.add(price);
