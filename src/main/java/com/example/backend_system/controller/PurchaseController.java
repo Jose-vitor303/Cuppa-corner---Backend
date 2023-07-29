@@ -1,13 +1,10 @@
 package com.example.backend_system.controller;
-
-import com.example.backend_system.entities.Product;
 import com.example.backend_system.entities.Purchase;
 import com.example.backend_system.services.PurchaseService;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-qq
 import java.util.List;
 
 @RestController
@@ -31,8 +28,8 @@ public class PurchaseController {
         }
     }
 
-    @PostMapping("/add/purchase/{amount}")
-    public ResponseEntity<Object> createPurchase(@RequestBody Purchase purchase, @PathVariable int amount){
+    @PostMapping("/add/purchase/")
+    public ResponseEntity<Object> createPurchase(@RequestBody Purchase purchase){
 
         Purchase purchase1 = new Purchase(purchase.getUser(), purchase.getProductList());
         purchaseService.save(purchase1);
