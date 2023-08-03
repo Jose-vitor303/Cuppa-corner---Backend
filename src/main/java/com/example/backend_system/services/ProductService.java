@@ -2,8 +2,6 @@ package com.example.backend_system.services;
 
 import com.example.backend_system.entities.Product;
 import com.example.backend_system.repository.ProductRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,8 +20,9 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public void save(Product product){
+    public Product save(Product product){
         productRepository.save(product);
+        return product;
     }
 
 

@@ -42,6 +42,7 @@ public class Purchase {
 
     }
 
+
     public BigDecimal calculateTotal(){
         BigDecimal total = BigDecimal.ZERO;
 

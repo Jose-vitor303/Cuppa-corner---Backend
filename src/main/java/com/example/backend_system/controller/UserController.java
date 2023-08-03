@@ -2,6 +2,8 @@ package com.example.backend_system.controller;
 
 import com.example.backend_system.entities.User;
 import com.example.backend_system.services.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
+@Tag(name = "User Routes")
 public class UserController {
 
     private final UserService userService;
@@ -17,7 +20,9 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/teste")
+
+    @Operation(summary = "Fetch all users")
+    @GetMapping
     public ResponseEntity<List<User>> getAllUsers(){
         List<User> userList = userService.findAll();
 
