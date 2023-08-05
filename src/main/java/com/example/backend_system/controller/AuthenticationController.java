@@ -1,11 +1,12 @@
 package com.example.backend_system.controller;
 
 
-import com.example.backend_system.dto.AuthenticationDTO;
-import com.example.backend_system.dto.LoginResponseDTO;
-import com.example.backend_system.dto.RegisterDTO;
+import com.example.backend_system.config.TokenRefreshException;
+import com.example.backend_system.dto.*;
+import com.example.backend_system.entities.RefreshToken;
 import com.example.backend_system.entities.User;
 import com.example.backend_system.model.UserRole;
+import com.example.backend_system.repository.RefreshTokenRepository;
 import com.example.backend_system.repository.UserRepository;
 import com.example.backend_system.services.AuthorizationService;
 import com.example.backend_system.services.TokenService;
@@ -53,7 +54,9 @@ public class AuthenticationController {
 
         var token = tokenService.generateToken((User) auth.getPrincipal());
 
-        return ResponseEntity.ok(new LoginResponseDTO(token));
+        var refreshToken = tokenService.createRefreshToken((User) auth.getPrincipal());
+
+        return ResponseEntity.ok(new LoginResponseDTO(token, refreshToken.getToken()));
     }
 
 
@@ -70,5 +73,21 @@ public class AuthenticationController {
         this.repository.save(newUser);
 
         return ResponseEntity.ok().build();
+    }
+
+    @Operation(summary = "Request a new Token")
+    @PostMapping("/refresh")
+    public ResponseEntity refreshToken(@RequestBody @Validated TokenRefreshRequest request){
+        String requestRefreshToken = request.getRefreshToken();
+
+        return tokenService.findByToken(requestRefreshToken)
+                .map(tokenService::verifyExpiration)
+                .map(RefreshToken::getUser)
+                .map(user -> {
+                    String token = tokenService.generateTokenFromUserName(user.getUsername());
+                    return ResponseEntity.ok(new TokenRefreshResponse(token, requestRefreshToken));
+                }).orElseThrow(() -> new TokenRefreshException(requestRefreshToken,
+                        "Refresh token is not in database!"));
+
     }
 }
