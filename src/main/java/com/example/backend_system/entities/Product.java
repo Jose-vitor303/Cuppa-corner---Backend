@@ -34,13 +34,6 @@ public class Product {
     @ManyToMany(mappedBy = "productList")
     private List<Purchase> purchaseList = new ArrayList<>();
 
-    public Product(String name, String description, BigDecimal price, Category categories) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.categories = categories;
-    }
-
     public Product(String name, String description, BigDecimal price, Category categories, int amount){
         this.name = name;
         this.description = description;

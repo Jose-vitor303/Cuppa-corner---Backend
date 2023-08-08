@@ -2,6 +2,8 @@ package com.example.backend_system.controller;
 
 import com.example.backend_system.entities.Category;
 import com.example.backend_system.services.CategoryService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/categories")
+@Tag(name = "Category Routes")
 public class CategoryController {
 
     private final CategoryService categoryService;
@@ -19,6 +22,7 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
+    @Operation(summary = "Fetch All Categories")
     @GetMapping
     public ResponseEntity<List<Category>> getAllCategories(){
         List<Category> categoryList = categoryService.findAll();
@@ -30,6 +34,8 @@ public class CategoryController {
         }
     }
 
+
+    @Operation(summary = "Create a new Category")
     @PostMapping("/add/category")
     public ResponseEntity<Object> createCategory(@RequestBody Category category){
 

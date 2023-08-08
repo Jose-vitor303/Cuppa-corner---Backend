@@ -22,10 +22,9 @@ import java.util.UUID;
 @Table(name = "users")
 public class User implements UserDetails {
 
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "user_id")
     private UUID userId;
 
     @Column(nullable = false, unique = true)
@@ -42,6 +41,7 @@ public class User implements UserDetails {
         this.password = password;
         this.role = role;
     }
+
 
     @Override
     public String getUsername(){

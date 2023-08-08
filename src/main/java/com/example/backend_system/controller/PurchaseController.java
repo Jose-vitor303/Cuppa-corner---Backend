@@ -1,6 +1,8 @@
 package com.example.backend_system.controller;
 import com.example.backend_system.entities.Purchase;
 import com.example.backend_system.services.PurchaseService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/purchases")
+@Tag(name = "Purchase Routes")
 public class PurchaseController {
 
     private final PurchaseService purchaseService;
@@ -17,6 +20,7 @@ public class PurchaseController {
         this.purchaseService = purchaseService;
     }
 
+    @Operation(summary = "Fetch All Purchases")
     @GetMapping
     public ResponseEntity<List<Purchase>> getAllPurchases(){
         List<Purchase> purchaseList = purchaseService.findAll();
@@ -28,6 +32,7 @@ public class PurchaseController {
         }
     }
 
+    @Operation(summary = "Create a new Purchase")
     @PostMapping("/add/purchase/")
     public ResponseEntity<Object> createPurchase(@RequestBody Purchase purchase){
 
