@@ -17,6 +17,10 @@ public class RefreshToken {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
+    @OneToOne(mappedBy = "refreshToken", cascade = CascadeType.REMOVE)
+    @JoinColumn(insertable = false, updatable = false)
+    private BlockedToken blockedToken;
+
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;

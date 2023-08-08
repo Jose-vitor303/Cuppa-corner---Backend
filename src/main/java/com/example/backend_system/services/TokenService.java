@@ -99,12 +99,18 @@ public class TokenService {
         return token;
     }
 
+    public RefreshToken verifyBlockToken(RefreshToken token){
+        refreshTokenRepository.delete(token);
+
+        return token;
+    }
+
 
     private Instant genExpirationDate(){
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
     }
 
 
-    private Instant getExpirationRefreshToken(){ return LocalDateTime.now().plusHours(10).toInstant(ZoneOffset.of("-03:00"));
+    private Instant getExpirationRefreshToken(){ return LocalDateTime.now().plusMinutes(5).toInstant(ZoneOffset.of("-03:00"));
     }
 }

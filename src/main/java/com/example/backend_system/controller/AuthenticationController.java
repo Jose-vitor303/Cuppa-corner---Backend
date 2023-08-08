@@ -9,17 +9,22 @@ import com.example.backend_system.model.UserRole;
 import com.example.backend_system.repository.RefreshTokenRepository;
 import com.example.backend_system.repository.UserRepository;
 import com.example.backend_system.services.AuthorizationService;
+import com.example.backend_system.services.BlockedTokenService;
 import com.example.backend_system.services.TokenService;
 import com.example.backend_system.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 
 @RestController
@@ -28,11 +33,12 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Authentication Routes")
 public class AuthenticationController {
 
+    private final BlockedTokenService blockedTokenService;
+
     private final UserRepository repository;
 
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
-
     private final AuthorizationService authorizationService;
     private final TokenService tokenService;
 
@@ -80,6 +86,15 @@ public class AuthenticationController {
     public ResponseEntity refreshToken(@RequestBody @Validated TokenRefreshRequest request){
         String requestRefreshToken = request.getRefreshToken();
 
+        Boolean blockedToken = blockedTokenService.isTokenBlocked(requestRefreshToken);
+
+        if(blockedToken){
+            tokenService.findByToken(requestRefreshToken)
+                    .map(tokenService::verifyBlockToken);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body("Invalid token");
+        }
+
         return tokenService.findByToken(requestRefreshToken)
                 .map(tokenService::verifyExpiration)
                 .map(RefreshToken::getUser)
@@ -89,5 +104,15 @@ public class AuthenticationController {
                 }).orElseThrow(() -> new TokenRefreshException(requestRefreshToken,
                         "Refresh token is not in database!"));
 
-    }
+        }
+
+        @PostMapping("/logout")
+        public ResponseEntity logoutUser(@RequestBody TokenRefreshRequest refreshToken){
+
+            Optional<RefreshToken> oldRefreshToken = tokenService.findByToken(refreshToken.getRefreshToken());
+            System.out.println(oldRefreshToken);
+            blockedTokenService.blockToken(oldRefreshToken);
+
+            return ResponseEntity.ok("User Logout out ");
+        }
 }
